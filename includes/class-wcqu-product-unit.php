@@ -60,9 +60,12 @@ class WC_Quantities_and_Units_Product_Unit {
 	 * @return string
 	 */
 	public function get_price_suffix( $price_display_suffix, $product ) {
-		// todo make default unit configuarble
+		// todo make default unit configurable
 		if ( $unit = $this->get_unit_for_product( $product->get_id(), apply_filters( 'wciu_default_price_suffix', __( '', 'woocommerce' ) ) ) ) {
-			$price_display_suffix = "/" . $unit . " " . $price_display_suffix;
+			$unit_prefix = '/';
+			$unit_suffix = ' ';
+
+			$price_display_suffix = apply_filters('wcqu_default_unit_suffix', $unit_prefix . $unit . $unit_suffix . $price_display_suffix, $unit_prefix, $unit, $unit_suffix, $price_display_suffix);
 		}
 
 		return $price_display_suffix;
